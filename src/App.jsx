@@ -9,12 +9,12 @@ import SearchResults  from "./pages/SearchResults";
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Dashboard />} />
-      <Route path="/product/:id" element={<ProductDetail />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/wishlist" element={<Wishlist />} />
-      <Route path="/cart" element={<Cart />} /> 
-      <Route path="/search" element={<SearchResults />} /> 
+      <Route path="/" element={<Dashboard />} />          {/*Dashboard Page*/} 
+      <Route path="/product/:id" element={<ProductDetail />} />           {/* ProductDetail Page */}
+      <Route path="/login" element={<Login />} />         {/* Login Page */}
+      <Route path="/wishlist" element={<Wishlist />} />         {/* Wishlist Page */}
+      <Route path="/cart" element={<Cart />} />         {/* Cart Page  */}
+      <Route path="/search" element={<SearchResults />} />          {/* SearchResult Page */}
     </Routes>
   );
 }
