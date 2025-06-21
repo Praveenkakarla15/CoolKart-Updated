@@ -7,8 +7,10 @@ const Banner = () => {
   const navigate = useNavigate();
 
   return (
+    // Section with gradient background and padding
     <section className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white py-12 px-4 md:px-16 rounded-lg shadow-lg my-8">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
+        {/* Left Section: Logo, Text, and Button */}
         <div className="md:w-1/2">
           <div className="mb-4">
             <img src={logo} alt="CoolKart Logo" className="h-50 rounded-full" />
@@ -26,7 +28,7 @@ const Banner = () => {
             Start Shopping
           </button>
         </div>
-
+        {/* Right Section: Banner Image */}
         <div className="md:w-1/2">
           <img
             src={bannerImage}

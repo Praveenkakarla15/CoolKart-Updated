@@ -13,12 +13,15 @@ const ProductCard = ({ product }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  // Access cart and wishlist state from Redux
   const cartItems = useSelector((state) => state.cart.cartItems);
   const wishlistItems = useSelector((state) => state.wishlist.wishlistItems);
 
+  // Check if current product is already in cart or wishlist
   const isInCart = cartItems.some((item) => item.id === product.id);
   const isInWishlist = wishlistItems.some((item) => item.id === product.id);
 
+  // Handle add to cart or navigate to cart if already present
   const handleCartClick = () => {
     if (isInCart) {
       navigate("/cart");
@@ -27,6 +30,7 @@ const ProductCard = ({ product }) => {
     }
   };
 
+  // Toggle wishlist state (add/remove)
   const handleWishlistToggle = () => {
     if (isInWishlist) {
       dispatch(removeFromWishlist(product.id));
@@ -37,6 +41,7 @@ const ProductCard = ({ product }) => {
 
   return (
     <div className="bg-white shadow-md rounded-xl p-4 hover:shadow-lg transition-shadow duration-300 flex flex-col">
+      {/* Product image and basic info linking to detail page */}
       <Link to={`/product/${product.id}`}>
         <img
           src={product.image}
@@ -47,6 +52,7 @@ const ProductCard = ({ product }) => {
         <p className="text-gray-500 text-sm capitalize">{product.category}</p>
       </Link>
 
+      {/* Price and rating display */}
       <div className="flex items-center gap-2 my-2">
         <span className="text-green-600 font-bold">${product.price}</span>
         <span className="flex items-center text-yellow-500 text-sm">
@@ -54,6 +60,7 @@ const ProductCard = ({ product }) => {
         </span>
       </div>
 
+      {/* Add to cart and wishlist buttons */}
       <div className="flex justify-between mt-3 items-center">
         <button
           onClick={handleCartClick}

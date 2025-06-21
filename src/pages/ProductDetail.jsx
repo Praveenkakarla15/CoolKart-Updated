@@ -4,17 +4,25 @@ import { useDispatch } from "react-redux";
 import { addToCart } from "../features/cart/cartslice";
 import { addToWishlist } from "../features/Wishlist/WishlistSlice";
 import { AiOutlineHeart } from "react-icons/ai";
-import { FaStar, FaHeart, FaShoppingCart, FaUser, FaSearch } from "react-icons/fa";
+import {
+  FaStar,
+  FaHeart,
+  FaShoppingCart,
+  FaUser,
+  FaSearch,
+} from "react-icons/fa";
 
 const ProductDetail = () => {
-  const { id } = useParams();
+  const { id } = useParams(); // Get product ID from URL
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [product, setProduct] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [isAdded, setIsAdded] = useState(false);
-  const [query, setQuery] = useState("");
 
+  const [product, setProduct] = useState(null); // Store fetched product data
+  const [loading, setLoading] = useState(true); // Loading state
+  const [isAdded, setIsAdded] = useState(false); //Feedback state for cart
+  const [query, setQuery] = useState(""); // Search query state
+
+  // Fetch product details from API using product ID
   const fetchProductDetail = async () => {
     try {
       const res = await fetch(`https://fakestoreapi.com/products/${id}`);
@@ -27,10 +35,12 @@ const ProductDetail = () => {
     }
   };
 
+  // Run fetch when component mounts or ID changes
   useEffect(() => {
     fetchProductDetail();
   }, [id]);
 
+  // Handle search input and redirect
   const handleSearch = () => {
     if (query.trim()) {
       navigate(`/search?q=${encodeURIComponent(query.trim())}`);
@@ -38,13 +48,18 @@ const ProductDetail = () => {
     }
   };
 
+  // Show loading or error message
   if (loading) return <div className="p-6 text-center">Loading...</div>;
-  if (!product) return <div className="p-6 text-center text-red-500">Product not found</div>;
+  if (!product)
+    return (
+      <div className="p-6 text-center text-red-500">Product not found</div>
+    );
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-100 to-blue-100">
-      {/* Header with Icons */}
+      {/* Header with logo, search, and icons */}
       <div className="flex justify-between items-center max-w-6xl mx-auto px-4 py-4 bg-white/90 text-gray-800 shadow-md rounded-b-lg">
+        {/* Logo text - navigates home */}
         <h1
           className="text-2xl font-bold text-blue-600 cursor-pointer"
           onClick={() => navigate("/")}
@@ -52,6 +67,7 @@ const ProductDetail = () => {
           CoolKart
         </h1>
 
+        {/* Search bar */}
         <div className="flex items-center border rounded px-2 bg-white">
           <input
             type="text"
@@ -67,10 +83,20 @@ const ProductDetail = () => {
           />
         </div>
 
+        {/* Wishlist, Cart, and Login Icons */}
         <div className="flex items-center gap-4 text-xl text-gray-700">
-          <FaHeart className="cursor-pointer" onClick={() => navigate("/wishlist")} />
-          <FaShoppingCart className="cursor-pointer" onClick={() => navigate("/cart")} />
-          <FaUser className="cursor-pointer" onClick={() => navigate("/login")} />
+          <FaHeart
+            className="cursor-pointer"
+            onClick={() => navigate("/wishlist")}
+          />
+          <FaShoppingCart
+            className="cursor-pointer"
+            onClick={() => navigate("/cart")}
+          />
+          <FaUser
+            className="cursor-pointer"
+            onClick={() => navigate("/login")}
+          />
         </div>
       </div>
 
@@ -84,16 +110,18 @@ const ProductDetail = () => {
         </button>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-white bg-opacity-70 backdrop-blur-sm p-6 rounded-2xl shadow-md">
+          {/* Product image */}
           <img
             src={product.image}
             alt={product.title}
             className="w-full h-96 object-contain rounded"
           />
-
+          {/* Product text details */}
           <div>
             <h1 className="text-2xl font-bold mb-2">{product.title}</h1>
             <p className="text-gray-600 mb-2 capitalize">{product.category}</p>
 
+            {/* Product rating */}
             <div className="flex items-center text-yellow-500 text-sm mb-3">
               {[...Array(Math.round(product.rating?.rate || 4))].map((_, i) => (
                 <FaStar key={i} />
@@ -103,11 +131,13 @@ const ProductDetail = () => {
               </span>
             </div>
 
+            {/* Price and description */}
             <p className="text-xl font-semibold text-green-600 mb-2">
               ${product.price}
             </p>
             <p className="mb-4 text-gray-700">{product.description}</p>
 
+            {/* Buttons for Add to Cart and Wishlist */}
             <div className="flex gap-4 mt-4">
               <button
                 onClick={() => {

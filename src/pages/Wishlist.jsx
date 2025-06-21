@@ -4,8 +4,8 @@ import { removeFromWishlist } from "../features/Wishlist/WishlistSlice";
 import { addToCart } from "../features/cart/cartslice";
 import { useNavigate } from "react-router-dom";
 
-
 const Wishlist = () => {
+  // Access wishlist and cart items from Redux store
   const wishlistItems = useSelector((state) => state.wishlist.wishlistItems);
   const cartItems = useSelector((state) => state.cart.cartItems);
   const dispatch = useDispatch();
@@ -15,6 +15,7 @@ const Wishlist = () => {
   // Track which items have been added to cart (based on cart content)
   const isItemInCart = (id) => cartItems.some((item) => item.id === id);
 
+  // Handle search input navigation
   const handleSearch = () => {
     if (query.trim()) {
       navigate(`/search?q=${encodeURIComponent(query.trim())}`);
@@ -24,12 +25,13 @@ const Wishlist = () => {
 
   return (
     <div className="relative min-h-screen px-4 py-12 bg-gradient-to-br from-cyan-400 via-sky-500 to-blue-600 text-white overflow-hidden">
-      {/* ...navigation header code remains the same */}
-
       {/* Wishlist Content */}
       <div className="relative z-10 max-w-5xl mx-auto bg-white/90 text-gray-800 rounded-xl shadow-xl p-6">
-        <h1 className="text-3xl font-bold mb-6 text-center text-blue-700">Your Wishlist</h1>
+        <h1 className="text-3xl font-bold mb-6 text-center text-blue-700">
+          Your Wishlist
+        </h1>
 
+        {/* Show empty state or product grid */}
         {wishlistItems.length === 0 ? (
           <p className="text-center text-gray-600">Your wishlist is empty.</p>
         ) : (
@@ -39,6 +41,7 @@ const Wishlist = () => {
                 key={item.id}
                 className="flex gap-4 items-center border rounded-lg p-4 shadow bg-white"
               >
+                {/* Product image and details */}
                 <img
                   src={item.image}
                   alt={item.title}
@@ -47,6 +50,8 @@ const Wishlist = () => {
                 <div className="flex flex-col flex-grow">
                   <h2 className="text-lg font-semibold">{item.title}</h2>
                   <p className="text-gray-600">${item.price}</p>
+
+                  {/* Action buttons: Add to Cart / Go to Cart & Remove */}
                   <div className="mt-2 flex gap-2">
                     {isItemInCart(item.id) ? (
                       <button

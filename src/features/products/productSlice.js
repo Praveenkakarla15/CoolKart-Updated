@@ -1,4 +1,4 @@
-// src/features/products/productSlice.js
+
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
@@ -39,5 +39,3 @@ const productSlice = createSlice({
 // ✅ Export reducer as default
 export default productSlice.reducer;
 
-// ❌ REMOVE this line ↓
-// export { fetchProducts };

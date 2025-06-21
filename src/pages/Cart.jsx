@@ -8,12 +8,16 @@ import {
 } from "../features/cart/cartslice";
 
 const Cart = () => {
-  const cartItems = useSelector((state) => state.cart.cartItems);
-  const dispatch = useDispatch();
+  const cartItems = useSelector((state) => state.cart.cartItems); // Get cart items from Redux store
+  const dispatch = useDispatch(); // Used to dispatch cart actions
 
+  // Calculate total price of all items in cart
   const getTotalPrice = () =>
-    cartItems.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2);
+    cartItems
+      .reduce((total, item) => total + item.price * item.quantity, 0)
+      .toFixed(2);
 
+  // If the cart is empty, show an empty cart message
   if (cartItems.length === 0) {
     return (
       <div className="p-6 text-center min-h-screen bg-gradient-to-br from-cyan-400 via-blue-500 to-teal-500 text-white">
@@ -24,15 +28,19 @@ const Cart = () => {
   }
 
   return (
+    // Main cart container with background and padding
     <div className="min-h-screen p-6 bg-gradient-to-br from-cyan-400 via-blue-500 to-teal-500 text-white">
       <h1 className="text-4xl font-bold mb-8">Your Shopping Cart</h1>
 
+      {/* List of cart items */}
       <div className="space-y-6">
         {cartItems.map((item) => (
           <div
             key={item.id}
             className="bg-white bg-opacity-90 text-gray-800 rounded-xl shadow-lg p-4 flex items-center justify-between"
           >
+            {" "}
+            {/* Product info section: image, title, price, quantity controls */}
             <div className="flex items-center gap-4">
               <img
                 src={item.image}
@@ -42,6 +50,8 @@ const Cart = () => {
               <div>
                 <h2 className="font-semibold text-lg">{item.title}</h2>
                 <p className="text-cyan-700 font-medium">${item.price}</p>
+
+                {/* Quantity adjustment buttons */}
                 <div className="flex items-center mt-2">
                   <button
                     onClick={() => dispatch(decrementQuantity(item.id))}
@@ -49,7 +59,9 @@ const Cart = () => {
                   >
                     −
                   </button>
-                  <span className="px-4 font-semibold text-blue-700">{item.quantity}</span>
+                  <span className="px-4 font-semibold text-blue-700">
+                    {item.quantity}
+                  </span>
                   <button
                     onClick={() => dispatch(incrementQuantity(item.id))}
                     className="px-3 py-1 bg-blue-100 hover:bg-blue-200 rounded-r"
@@ -59,6 +71,7 @@ const Cart = () => {
                 </div>
               </div>
             </div>
+            {/* Item total and remove button */}
             <div className="text-right">
               <p className="text-lg font-bold text-teal-600">
                 ${(item.price * item.quantity).toFixed(2)}
@@ -74,8 +87,11 @@ const Cart = () => {
         ))}
       </div>
 
+      {/* Total price and clear cart button */}
       <div className="mt-10 flex justify-between items-center">
-        <p className="text-2xl font-bold text-white">Total: ${getTotalPrice()}</p>
+        <p className="text-2xl font-bold text-white">
+          Total: ${getTotalPrice()}
+        </p>
         <button
           onClick={() => dispatch(clearCart())}
           className="px-6 py-2 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-lg shadow"
