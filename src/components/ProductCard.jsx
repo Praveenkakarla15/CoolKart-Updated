@@ -13,15 +13,12 @@ const ProductCard = ({ product }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // Access cart and wishlist state from Redux
   const cartItems = useSelector((state) => state.cart.cartItems);
   const wishlistItems = useSelector((state) => state.wishlist.wishlistItems);
 
-  // Check if current product is already in cart or wishlist
   const isInCart = cartItems.some((item) => item.id === product.id);
   const isInWishlist = wishlistItems.some((item) => item.id === product.id);
 
-  // Handle add to cart or navigate to cart if already present
   const handleCartClick = () => {
     if (isInCart) {
       navigate("/cart");
@@ -30,7 +27,6 @@ const ProductCard = ({ product }) => {
     }
   };
 
-  // Toggle wishlist state (add/remove)
   const handleWishlistToggle = () => {
     if (isInWishlist) {
       dispatch(removeFromWishlist(product.id));
@@ -40,44 +36,51 @@ const ProductCard = ({ product }) => {
   };
 
   return (
-    <div className="bg-white shadow-md rounded-xl p-4 hover:shadow-lg transition-shadow duration-300 flex flex-col">
-      {/* Product image and basic info linking to detail page */}
-      <Link to={`/product/${product.id}`}>
+    <div className="bg-white shadow-md rounded-2xl p-4 hover:shadow-lg transition-all duration-300 flex flex-col">
+      
+      {/* Product Image & Info */}
+      <Link to={`/product/${product.id}`} className="flex flex-col items-center text-center mb-4">
         <img
           src={product.image}
           alt={product.title}
-          className="h-48 w-full object-contain mb-4"
+          className="h-40 w-full object-contain mb-3"
         />
-        <h2 className="text-lg font-semibold truncate">{product.title}</h2>
+        <h2 className="text-base sm:text-lg font-semibold line-clamp-2">{product.title}</h2>
         <p className="text-gray-500 text-sm capitalize">{product.category}</p>
       </Link>
 
-      {/* Price and rating display */}
-      <div className="flex items-center gap-2 my-2">
-        <span className="text-green-600 font-bold">${product.price}</span>
+      {/* Price & Rating */}
+      <div className="flex items-center justify-between my-2">
+        <span className="text-green-600 font-bold text-base sm:text-lg">
+          ${product.price}
+        </span>
         <span className="flex items-center text-yellow-500 text-sm">
-          <FaStar className="mr-1" /> {product.rating?.rate ?? 4.2}
+          <FaStar className="mr-1" />
+          {product.rating?.rate ?? 4.2}
         </span>
       </div>
 
-      {/* Add to cart and wishlist buttons */}
-      <div className="flex justify-between mt-3 items-center">
+      {/* Buttons */}
+      <div className="flex justify-between items-center mt-3">
         <button
           onClick={handleCartClick}
           className={`${
             isInCart
               ? "bg-green-500 hover:bg-green-600"
               : "bg-blue-600 hover:bg-blue-700"
-          } text-white px-3 py-1 rounded text-sm`}
+          } text-white px-3 py-1 rounded text-xs sm:text-sm transition`}
         >
           {isInCart ? "Go to Cart" : "Add to Cart"}
         </button>
 
-        <button onClick={handleWishlistToggle} className="text-xl">
+        <button
+          onClick={handleWishlistToggle}
+          className="text-xl hover:scale-110 transition-transform"
+        >
           {isInWishlist ? (
-            <AiFillHeart className="text-red-500 hover:scale-110 transition-transform" />
+            <AiFillHeart className="text-red-500" />
           ) : (
-            <AiOutlineHeart className="text-gray-500 hover:text-pink-500 hover:scale-110 transition-transform" />
+            <AiOutlineHeart className="text-gray-500 hover:text-pink-500" />
           )}
         </button>
       </div>

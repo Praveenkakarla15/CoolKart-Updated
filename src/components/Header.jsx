@@ -15,7 +15,9 @@ const Header = () => {
 
   return (
     <header className="bg-white shadow-md sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto flex items-center justify-between p-4">
+      <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 p-4">
+        
+        {/* Logo */}
         <h1
           className="text-2xl font-bold text-blue-600 cursor-pointer"
           onClick={() => navigate("/")}
@@ -24,7 +26,7 @@ const Header = () => {
         </h1>
 
         {/* Search Bar */}
-        <div className="flex items-center border rounded px-2">
+        <div className="flex items-center border rounded px-2 w-full sm:w-auto">
           <input
             type="text"
             placeholder="Search for clothes, products and more..."
@@ -39,14 +41,14 @@ const Header = () => {
           />
         </div>
 
-        {/* Icons */}
-        <div className="flex items-center gap-6 text-gray-700">
+        {/* Action Icons */}
+        <div className="flex items-center gap-4 text-gray-700">
           <div
             className="flex items-center gap-1 cursor-pointer hover:text-blue-600"
             onClick={() => navigate("/wishlist")}
           >
             <FaHeart />
-            <span className="text-sm hidden sm:inline">Wishlist</span>
+            <span className="text-sm hidden md:inline">Wishlist</span>
           </div>
 
           <div
@@ -54,7 +56,7 @@ const Header = () => {
             onClick={() => navigate("/cart")}
           >
             <FaShoppingCart />
-            <span className="text-sm hidden sm:inline">Cart</span>
+            <span className="text-sm hidden md:inline">Cart</span>
           </div>
 
           <div
@@ -62,7 +64,7 @@ const Header = () => {
             onClick={() => navigate("/login")}
           >
             <FaUser />
-            <span className="text-sm hidden sm:inline">Login</span>
+            <span className="text-sm hidden md:inline">Login</span>
           </div>
         </div>
       </div>

@@ -4,25 +4,18 @@ import { useDispatch } from "react-redux";
 import { addToCart } from "../features/cart/cartslice";
 import { addToWishlist } from "../features/Wishlist/WishlistSlice";
 import { AiOutlineHeart } from "react-icons/ai";
-import {
-  FaStar,
-  FaHeart,
-  FaShoppingCart,
-  FaUser,
-  FaSearch,
-} from "react-icons/fa";
+import { FaStar, FaHeart, FaShoppingCart, FaUser, FaSearch } from "react-icons/fa";
 
 const ProductDetail = () => {
-  const { id } = useParams(); // Get product ID from URL
+  const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [product, setProduct] = useState(null); // Store fetched product data
-  const [loading, setLoading] = useState(true); // Loading state
-  const [isAdded, setIsAdded] = useState(false); //Feedback state for cart
-  const [query, setQuery] = useState(""); // Search query state
+  const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [isAdded, setIsAdded] = useState(false);
+  const [query, setQuery] = useState("");
 
-  // Fetch product details from API using product ID
   const fetchProductDetail = async () => {
     try {
       const res = await fetch(`https://fakestoreapi.com/products/${id}`);
@@ -35,12 +28,10 @@ const ProductDetail = () => {
     }
   };
 
-  // Run fetch when component mounts or ID changes
   useEffect(() => {
     fetchProductDetail();
   }, [id]);
 
-  // Handle search input and redirect
   const handleSearch = () => {
     if (query.trim()) {
       navigate(`/search?q=${encodeURIComponent(query.trim())}`);
@@ -48,7 +39,6 @@ const ProductDetail = () => {
     }
   };
 
-  // Show loading or error message
   if (loading) return <div className="p-6 text-center">Loading...</div>;
   if (!product)
     return (
@@ -57,9 +47,10 @@ const ProductDetail = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-100 to-blue-100">
-      {/* Header with logo, search, and icons */}
-      <div className="flex justify-between items-center max-w-6xl mx-auto px-4 py-4 bg-white/90 text-gray-800 shadow-md rounded-b-lg">
-        {/* Logo text - navigates home */}
+      
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row justify-between items-center max-w-6xl mx-auto px-4 py-4 bg-white/90 text-gray-800 shadow-md rounded-b-lg gap-4">
+        
         <h1
           className="text-2xl font-bold text-blue-600 cursor-pointer"
           onClick={() => navigate("/")}
@@ -67,8 +58,7 @@ const ProductDetail = () => {
           CoolKart
         </h1>
 
-        {/* Search bar */}
-        <div className="flex items-center border rounded px-2 bg-white">
+        <div className="flex items-center border rounded px-2 bg-white w-full sm:w-auto">
           <input
             type="text"
             placeholder="Search"
@@ -83,7 +73,6 @@ const ProductDetail = () => {
           />
         </div>
 
-        {/* Wishlist, Cart, and Login Icons */}
         <div className="flex items-center gap-4 text-xl text-gray-700">
           <FaHeart
             className="cursor-pointer"
@@ -101,7 +90,7 @@ const ProductDetail = () => {
       </div>
 
       {/* Product Details */}
-      <div className="max-w-6xl mx-auto p-6">
+      <div className="max-w-6xl mx-auto p-4 sm:p-6">
         <button
           className="mb-4 text-blue-600 underline"
           onClick={() => navigate(-1)}
@@ -109,19 +98,22 @@ const ProductDetail = () => {
           ← Back
         </button>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-white bg-opacity-70 backdrop-blur-sm p-6 rounded-2xl shadow-md">
-          {/* Product image */}
-          <img
-            src={product.image}
-            alt={product.title}
-            className="w-full h-96 object-contain rounded"
-          />
-          {/* Product text details */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-white bg-opacity-70 backdrop-blur-sm p-4 sm:p-6 rounded-2xl shadow-md">
+          
+          {/* Product Image */}
+          <div className="flex justify-center items-center">
+            <img
+              src={product.image}
+              alt={product.title}
+              className="w-48 sm:w-64 md:w-full h-64 sm:h-80 object-contain rounded"
+            />
+          </div>
+
+          {/* Product Info */}
           <div>
-            <h1 className="text-2xl font-bold mb-2">{product.title}</h1>
+            <h1 className="text-xl sm:text-2xl font-bold mb-2">{product.title}</h1>
             <p className="text-gray-600 mb-2 capitalize">{product.category}</p>
 
-            {/* Product rating */}
             <div className="flex items-center text-yellow-500 text-sm mb-3">
               {[...Array(Math.round(product.rating?.rate || 4))].map((_, i) => (
                 <FaStar key={i} />
@@ -131,14 +123,12 @@ const ProductDetail = () => {
               </span>
             </div>
 
-            {/* Price and description */}
             <p className="text-xl font-semibold text-green-600 mb-2">
               ${product.price}
             </p>
             <p className="mb-4 text-gray-700">{product.description}</p>
 
-            {/* Buttons for Add to Cart and Wishlist */}
-            <div className="flex gap-4 mt-4">
+            <div className="flex flex-col sm:flex-row gap-4 mt-4">
               <button
                 onClick={() => {
                   dispatch(addToCart(product));
@@ -148,14 +138,14 @@ const ProductDetail = () => {
                 disabled={isAdded}
                 className={`${
                   isAdded ? "bg-green-600" : "bg-blue-600 hover:bg-blue-700"
-                } text-white px-4 py-2 rounded flex items-center gap-2 transition-all duration-500`}
+                } text-white px-4 py-2 rounded flex items-center justify-center gap-2 transition-all duration-500 w-full sm:w-auto`}
               >
                 {isAdded ? "✔ Added" : "Add to Cart"}
               </button>
 
               <button
                 onClick={() => dispatch(addToWishlist(product))}
-                className="bg-pink-500 hover:bg-pink-600 text-white px-4 py-2 rounded flex items-center gap-2"
+                className="bg-pink-500 hover:bg-pink-600 text-white px-4 py-2 rounded flex items-center justify-center gap-2 w-full sm:w-auto"
               >
                 <AiOutlineHeart size={18} />
                 Wishlist
