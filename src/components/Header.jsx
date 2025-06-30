@@ -1,10 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaHeart, FaShoppingCart, FaUser, FaSearch } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const navigate = useNavigate();
   const [query, setQuery] = useState("");
+  const [username, setUsername] = useState("");
+
+  useEffect(() => {
+    const storedUsername = localStorage.getItem("username");
+    if (storedUsername) {
+      setUsername(storedUsername);
+    }
+  }, []);
 
   const handleSearch = () => {
     if (query.trim()) {
@@ -64,7 +72,9 @@ const Header = () => {
             onClick={() => navigate("/login")}
           >
             <FaUser />
-            <span className="text-sm hidden md:inline">Login</span>
+            <span className="text-sm hidden md:inline">
+              {username ? username : "Login"}
+            </span>
           </div>
         </div>
       </div>

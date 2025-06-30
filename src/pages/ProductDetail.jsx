@@ -14,6 +14,7 @@ const ProductDetail = () => {
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isAdded, setIsAdded] = useState(false);
+  const [wishlistAdded, setWishlistAdded] = useState(false);
   const [query, setQuery] = useState("");
 
   const fetchProductDetail = async () => {
@@ -129,6 +130,8 @@ const ProductDetail = () => {
             <p className="mb-4 text-gray-700">{product.description}</p>
 
             <div className="flex flex-col sm:flex-row gap-4 mt-4">
+              
+              {/* Add to Cart Button */}
               <button
                 onClick={() => {
                   dispatch(addToCart(product));
@@ -143,13 +146,26 @@ const ProductDetail = () => {
                 {isAdded ? "✔ Added" : "Add to Cart"}
               </button>
 
+              {/* Wishlist Button */}
               <button
-                onClick={() => dispatch(addToWishlist(product))}
-                className="bg-pink-500 hover:bg-pink-600 text-white px-4 py-2 rounded flex items-center justify-center gap-2 w-full sm:w-auto"
+                onClick={() => {
+                  dispatch(addToWishlist(product));
+                  setWishlistAdded(true);
+                  setTimeout(() => setWishlistAdded(false), 2000);
+                }}
+                disabled={wishlistAdded}
+                className={`${
+                  wishlistAdded ? "bg-green-600" : "bg-pink-500 hover:bg-pink-600"
+                } text-white px-4 py-2 rounded flex items-center justify-center gap-2 transition-all duration-500 w-full sm:w-auto`}
               >
-                <AiOutlineHeart size={18} />
-                Wishlist
+                {wishlistAdded ? "✔ Added" : (
+                  <>
+                    <AiOutlineHeart size={18} />
+                    Wishlist
+                  </>
+                )}
               </button>
+
             </div>
           </div>
         </div>
