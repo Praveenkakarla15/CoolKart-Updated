@@ -16,7 +16,7 @@ const Login = () => {
 
     setError("");
 
-    // ✅ Extract username from email and store in localStorage
+    //  Extract username from email and store in localStorage
     const username = email.split("@")[0];
     localStorage.setItem("username", username);
 

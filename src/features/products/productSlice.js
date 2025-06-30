@@ -36,6 +36,6 @@ const productSlice = createSlice({
   },
 });
 
-// ✅ Export reducer as default
+//  Export reducer as default
 export default productSlice.reducer;
 
