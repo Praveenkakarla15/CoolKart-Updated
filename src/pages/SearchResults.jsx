@@ -4,12 +4,13 @@ import { useSelector } from "react-redux";
 import ProductCard from "../components/ProductCard";
 
 const SearchResults = () => {
-  const { search } = useLocation();
-  const query = new URLSearchParams(search).get("q")?.toLowerCase() || "";
+  const { search } = useLocation(); // Get the search query from the URL
+  const query = new URLSearchParams(search).get("q")?.toLowerCase() || ""; // Extract and normalize the search query
 
-  const { items: products } = useSelector((state) => state.products);
-
-  const filteredProducts = products.filter((product) =>
+  const { items: products } = useSelector((state) => state.products); // Access products from Redux store
+ 
+  // Filter products based on the search query
+  const filteredProducts = products.filter((product) =>  
     product.title.toLowerCase().includes(query)
   );
 

@@ -3,10 +3,11 @@ import { FaHeart, FaShoppingCart, FaUser, FaSearch } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
 const Header = () => {
-  const navigate = useNavigate();
-  const [query, setQuery] = useState("");
-  const [username, setUsername] = useState("");
+  const navigate = useNavigate(); // Hook to programmatically navigate
+  const [query, setQuery] = useState(""); // State for search query
+  const [username, setUsername] = useState(""); // State to store logged-in username
 
+  // Fetch username from localStorage on component mount
   useEffect(() => {
     const storedUsername = localStorage.getItem("username");
     if (storedUsername) {
@@ -14,17 +15,17 @@ const Header = () => {
     }
   }, []);
 
+  // Handle search logic
   const handleSearch = () => {
     if (query.trim()) {
-      navigate(`/search?q=${encodeURIComponent(query.trim())}`);
-      setQuery("");
+      navigate(`/search?q=${encodeURIComponent(query.trim())}`); // Navigate to search results with query as URL parameter
+      setQuery(""); // Clear search input after search
     }
   };
 
   return (
     <header className="bg-white shadow-md sticky top-0 z-50">
       <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 p-4">
-        
         {/* Logo */}
         <h1
           className="text-2xl font-bold text-blue-600 cursor-pointer"

@@ -10,9 +10,9 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 
 function App() {
-  const location = useLocation();
+  const location = useLocation(); // Hook to access current route information
 
-  // Optional: Hide Header/Footer on Login page if desired
+  // Logic to hide Header and Footer only on Login page
   const hideHeaderFooter = location.pathname === "/login";
 
   return (
@@ -29,7 +29,7 @@ function App() {
           <Route path="/search" element={<SearchResults />} />
         </Routes>
       </main>
-
+      {/* Conditionally render Footer except on Login page */}
       {!hideHeaderFooter && <Footer />}
     </div>
   );

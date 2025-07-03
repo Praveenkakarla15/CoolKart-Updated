@@ -5,10 +5,12 @@ import ProductCard from "../components/ProductCard";
 import Banner from "../components/Banner";
 import WhatWeSell from "../components/WhatWeSell";
 
+// Dashboard component to display all products
 const Dashboard = () => {
-  const dispatch = useDispatch();
-  const { items, loading, error } = useSelector((state) => state.products);
-
+  const dispatch = useDispatch(); // Redux dispatch to trigger actions
+  const { items, loading, error } = useSelector((state) => state.products); // Access products state from Redux store
+  
+  // Fetch products when component mounts
   useEffect(() => {
     dispatch(fetchProducts());
   }, [dispatch]);
@@ -29,7 +31,7 @@ const Dashboard = () => {
 
             <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
               {items?.map((product) => (
-                <ProductCard key={product.id} product={product} />
+                <ProductCard key={product.id} product={product} />  
               ))}
             </div>
           </div>

@@ -4,19 +4,26 @@ import { useDispatch } from "react-redux";
 import { addToCart } from "../features/cart/cartslice";
 import { addToWishlist } from "../features/Wishlist/WishlistSlice";
 import { AiOutlineHeart } from "react-icons/ai";
-import { FaStar, FaHeart, FaShoppingCart, FaUser, FaSearch } from "react-icons/fa";
+import {
+  FaStar,
+  FaHeart,
+  FaShoppingCart,
+  FaUser,
+  FaSearch,
+} from "react-icons/fa";
 
 const ProductDetail = () => {
-  const { id } = useParams();
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const { id } = useParams(); // Get product ID from URL parameters
+  const navigate = useNavigate(); // Hook to programmatically navigate
+  const dispatch = useDispatch(); // Redux dispatch to trigger actions
 
-  const [product, setProduct] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [isAdded, setIsAdded] = useState(false);
-  const [wishlistAdded, setWishlistAdded] = useState(false);
-  const [query, setQuery] = useState("");
+  const [product, setProduct] = useState(null); // State to hold product details
+  const [loading, setLoading] = useState(true); // Loading state to show loading indicator
+  const [isAdded, setIsAdded] = useState(false); // State to track if product is added to cart
+  const [wishlistAdded, setWishlistAdded] = useState(false); // State to track if product is added to wishlist
+  const [query, setQuery] = useState(""); // State for search query
 
+  // Function to fetch product details from API
   const fetchProductDetail = async () => {
     try {
       const res = await fetch(`https://fakestoreapi.com/products/${id}`);
@@ -29,10 +36,12 @@ const ProductDetail = () => {
     }
   };
 
+  // Fetch product details when component mounts or ID changes
   useEffect(() => {
     fetchProductDetail();
   }, [id]);
 
+  // Handle search functionality
   const handleSearch = () => {
     if (query.trim()) {
       navigate(`/search?q=${encodeURIComponent(query.trim())}`);
@@ -40,18 +49,19 @@ const ProductDetail = () => {
     }
   };
 
+  // If loading, show loading indicator
   if (loading) return <div className="p-6 text-center">Loading...</div>;
+
   if (!product)
+    // If product not found, show error message
     return (
       <div className="p-6 text-center text-red-500">Product not found</div>
     );
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-100 to-blue-100">
-      
       {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between items-center max-w-6xl mx-auto px-4 py-4 bg-white/90 text-gray-800 shadow-md rounded-b-lg gap-4">
-        
         <h1
           className="text-2xl font-bold text-blue-600 cursor-pointer"
           onClick={() => navigate("/")}
@@ -100,7 +110,6 @@ const ProductDetail = () => {
         </button>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-white bg-opacity-70 backdrop-blur-sm p-4 sm:p-6 rounded-2xl shadow-md">
-          
           {/* Product Image */}
           <div className="flex justify-center items-center">
             <img
@@ -112,7 +121,9 @@ const ProductDetail = () => {
 
           {/* Product Info */}
           <div>
-            <h1 className="text-xl sm:text-2xl font-bold mb-2">{product.title}</h1>
+            <h1 className="text-xl sm:text-2xl font-bold mb-2">
+              {product.title}
+            </h1>
             <p className="text-gray-600 mb-2 capitalize">{product.category}</p>
 
             <div className="flex items-center text-yellow-500 text-sm mb-3">
@@ -130,7 +141,6 @@ const ProductDetail = () => {
             <p className="mb-4 text-gray-700">{product.description}</p>
 
             <div className="flex flex-col sm:flex-row gap-4 mt-4">
-              
               {/* Add to Cart Button */}
               <button
                 onClick={() => {
@@ -155,17 +165,20 @@ const ProductDetail = () => {
                 }}
                 disabled={wishlistAdded}
                 className={`${
-                  wishlistAdded ? "bg-green-600" : "bg-pink-500 hover:bg-pink-600"
+                  wishlistAdded
+                    ? "bg-green-600"
+                    : "bg-pink-500 hover:bg-pink-600"
                 } text-white px-4 py-2 rounded flex items-center justify-center gap-2 transition-all duration-500 w-full sm:w-auto`}
               >
-                {wishlistAdded ? "✔ Added" : (
+                {wishlistAdded ? (
+                  "✔ Added"
+                ) : (
                   <>
                     <AiOutlineHeart size={18} />
                     Wishlist
                   </>
                 )}
               </button>
-
             </div>
           </div>
         </div>

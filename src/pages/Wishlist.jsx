@@ -5,18 +5,20 @@ import { addToCart } from "../features/cart/cartslice";
 import { useNavigate } from "react-router-dom";
 
 const Wishlist = () => {
-  const wishlistItems = useSelector((state) => state.wishlist.wishlistItems);
-  const cartItems = useSelector((state) => state.cart.cartItems);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const [query, setQuery] = useState("");
+  const wishlistItems = useSelector((state) => state.wishlist.wishlistItems); // Access wishlist items from Redux store
+  const cartItems = useSelector((state) => state.cart.cartItems); // Access cart items from Redux store
+  const dispatch = useDispatch();  // Redux dispatch to trigger actions
+  const navigate = useNavigate();   // Hook to programmatically navigate
+  const [query, setQuery] = useState("");  // State for search query
 
+  // Check if an item is already in the cart
   const isItemInCart = (id) => cartItems.some((item) => item.id === id);
-
+ 
+  // Handle search functionality
   const handleSearch = () => {
     if (query.trim()) {
-      navigate(`/search?q=${encodeURIComponent(query.trim())}`);
-      setQuery("");
+      navigate(`/search?q=${encodeURIComponent(query.trim())}`); // Navigate to search results with query as URL parameter
+      setQuery(""); // Clear search input after search
     }
   };
 

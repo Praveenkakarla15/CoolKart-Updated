@@ -1,14 +1,17 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+// Login component for user authentication
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // Hook to programmatically navigate
 
+  // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
+    // Basic validation for email and password
     if (!email || !password) {
       setError("Please enter both email and password.");
       return;
@@ -16,17 +19,17 @@ const Login = () => {
 
     setError("");
 
-    //  Extract username from email and store in localStorage
+    //Extract username from email and store in localStorage
     const username = email.split("@")[0];
     localStorage.setItem("username", username);
 
     alert("Login successful!");
-    navigate("/");
+    navigate("/");  // Navigate to home page after successful login
   };
 
   return (
     <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-tr from-fuchsia-500 via-purple-500 to-indigo-500 px-4">
-      
+
       {/* Animated Blobs */}
       <div className="absolute w-56 h-56 sm:w-72 sm:h-72 bg-pink-400 rounded-full opacity-30 blur-3xl animate-pulse top-5 left-5"></div>
       <div className="absolute w-72 h-72 sm:w-96 sm:h-96 bg-yellow-300 rounded-full opacity-30 blur-3xl animate-ping top-1/2 right-5 -translate-y-1/2"></div>

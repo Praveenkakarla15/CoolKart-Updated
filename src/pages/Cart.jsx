@@ -7,15 +7,18 @@ import {
   clearCart,
 } from "../features/cart/cartslice";
 
+// Cart component to display items in the shopping cart
 const Cart = () => {
   const cartItems = useSelector((state) => state.cart.cartItems);
   const dispatch = useDispatch();
 
+  // Function to calculate total price of items in the cart
   const getTotalPrice = () =>
     cartItems
       .reduce((total, item) => total + item.price * item.quantity, 0)
       .toFixed(2);
 
+  // If cart is empty, display a message
   if (cartItems.length === 0) {
     return (
       <div className="p-6 text-center min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-cyan-400 via-blue-500 to-teal-500 text-white">
@@ -27,7 +30,9 @@ const Cart = () => {
 
   return (
     <div className="min-h-screen p-4 sm:p-6 bg-gradient-to-br from-cyan-400 via-blue-500 to-teal-500 text-white">
-      <h1 className="text-2xl sm:text-4xl font-bold mb-6 sm:mb-8">Your Shopping Cart</h1>
+      <h1 className="text-2xl sm:text-4xl font-bold mb-6 sm:mb-8">
+        Your Shopping Cart
+      </h1>
 
       {/* Cart Items */}
       <div className="space-y-4 sm:space-y-6">
@@ -43,7 +48,9 @@ const Cart = () => {
                 className="w-16 h-16 sm:w-20 sm:h-20 object-contain rounded-md"
               />
               <div>
-                <h2 className="font-semibold text-base sm:text-lg">{item.title}</h2>
+                <h2 className="font-semibold text-base sm:text-lg">
+                  {item.title}
+                </h2>
                 <p className="text-cyan-700 font-medium text-sm sm:text-base">
                   ${item.price}
                 </p>

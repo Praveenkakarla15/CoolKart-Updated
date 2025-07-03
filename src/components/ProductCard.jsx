@@ -10,15 +10,18 @@ import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { FaStar } from "react-icons/fa";
 
 const ProductCard = ({ product }) => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const dispatch = useDispatch(); // Redux dispatch to trigger actions
+  const navigate = useNavigate(); // React Router hook to programmatically navigate
 
+  // Access cart and wishlist items from the Redux store
   const cartItems = useSelector((state) => state.cart.cartItems);
   const wishlistItems = useSelector((state) => state.wishlist.wishlistItems);
 
+  // Check if the product is already in the cart or wishlist
   const isInCart = cartItems.some((item) => item.id === product.id);
   const isInWishlist = wishlistItems.some((item) => item.id === product.id);
-
+  
+  // Handlers for cart and wishlist actions
   const handleCartClick = () => {
     if (isInCart) {
       navigate("/cart");
@@ -27,25 +30,30 @@ const ProductCard = ({ product }) => {
     }
   };
 
+  // Toggle wishlist item  (Add/Remove)
   const handleWishlistToggle = () => {
     if (isInWishlist) {
-      dispatch(removeFromWishlist(product.id));
+      dispatch(removeFromWishlist(product.id)); // Remove if already in wishlist
     } else {
-      dispatch(addToWishlist(product));
+      dispatch(addToWishlist(product)); // Add to wishlist
     }
   };
 
   return (
     <div className="bg-white shadow-md rounded-2xl p-4 hover:shadow-lg transition-all duration-300 flex flex-col">
-      
       {/* Product Image & Info */}
-      <Link to={`/product/${product.id}`} className="flex flex-col items-center text-center mb-4">
+      <Link
+        to={`/product/${product.id}`}
+        className="flex flex-col items-center text-center mb-4"
+      >
         <img
           src={product.image}
           alt={product.title}
           className="h-40 w-full object-contain mb-3"
         />
-        <h2 className="text-base sm:text-lg font-semibold line-clamp-2">{product.title}</h2>
+        <h2 className="text-base sm:text-lg font-semibold line-clamp-2">
+          {product.title}
+        </h2>
         <p className="text-gray-500 text-sm capitalize">{product.category}</p>
       </Link>
 
