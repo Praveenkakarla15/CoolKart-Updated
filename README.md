@@ -1,12 +1,40 @@
-# React + Vite
+# 🛒 CoolKart - E-Commerce Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+CoolKart is a responsive and modern e-commerce web application built with **React**, **Redux**, **Tailwind CSS**, and **Vite**. It provides users with a seamless online shopping experience featuring product listings, detailed product pages, shopping cart functionality, wishlist management, and secure user authentication.
 
-Currently, two official plugins are available:
+🌐 **Live Demo:** [https://cool-kart-updated-git-main-praveen-ks-projects-7fbabb68.vercel.app](https:cool-kart-updated-git-main-praveen-ks-projects-7fbabb68.vercel.app)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 🚀 Features
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+✅ Modern, responsive UI with Tailwind CSS  
+✅ Browse products with details like price, rating, and description  
+✅ Add products to **Cart** and **Wishlist**  
+✅ User authentication (Login, Register)  
+✅ Search functionality  
+✅ Persistent cart and wishlist with Redux  
+✅ Smooth navigation with React Router  
+✅ Optimized performance with Vite  
+
+---
+
+
+## 🛠️ Tech Stack
+
+- **React**  
+- **Redux Toolkit**  
+- **React Router**  
+- **Tailwind CSS**  
+- **Vite**  
+- **React Icons**  
+
+---
+
+## ⚙️ Installation & Setup
+
+1. **Clone the repository**
+
+```bash
+git clone https://github.com/Praveenkakarla15/CoolKart.git
+cd CoolKart
